@@ -8,6 +8,7 @@ public class Peon extends Pieza{
         setPosX(posX);
         setPosY(posY);
         setMove(1);
+        pieza = 'p';
         if(color == 'b')
             isBlanca=true;
         else
@@ -15,8 +16,21 @@ public class Peon extends Pieza{
     }
 
     @Override
+    public boolean isCanMove() {
+        Pieza p = new Pieza();
+        if(this.isBlanca)
+            p.posY = this.posY+1;
+        else
+            p.posY = this.posY-1;
+        if(Character.isLetter(p.pieza))
+            return canMove = false;
+        else
+            return canMove = true;
+    }
+
+    @Override
     public void mover(int newPos) {
-    if(canMove){
+    if(isCanMove()){
         if(newPos==posY+1)
             posY = newPos;
         else if(isBlanca && posX==1 && newPos == posY+2)
@@ -38,8 +52,8 @@ public class Peon extends Pieza{
             System.out.println("No puede comer");
     }
 
-    public void coronar(){
-        if(isBlanca && posY==7);
-        else if(isNegra && posY==0);
-    }
+    // public void coronar(){
+    //     if(isBlanca && posY==7);
+    //     else if(isNegra && posY==0);
+    // }
 }
